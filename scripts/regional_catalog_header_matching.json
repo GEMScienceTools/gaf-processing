@@ -60,6 +60,7 @@
         "WKT_GEOMETRY": "WKT_GEOMETRY",
         "average_dip": "dip",
         "name": "name",
+        "slip_type": "slip_type",
         "average_rake": "rake"
     },
           

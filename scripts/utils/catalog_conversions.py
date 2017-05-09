@@ -7,6 +7,7 @@ import pandas as pd
 # import catalog processing functions for each regional catalog
 from .ata import process_ata
 from .e_africa import process_e_africa
+from .emme import process_emme
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,
                                   catalog_name=None):
