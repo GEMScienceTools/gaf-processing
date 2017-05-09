@@ -56,7 +56,7 @@
         "slip_type":"slip_type"
     },
 
-    "emme_merge_dict": {
+    "emme": {
         "WKT_GEOMETRY": "WKT_GEOMETRY",
         "average_dip": "dip",
         "name": "name",
