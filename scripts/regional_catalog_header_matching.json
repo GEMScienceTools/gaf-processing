@@ -1,0 +1,124 @@
+{
+    "n_africa": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "accuracy": "accuracy",
+        "average_dip": "ns_average_dip",
+        "activity_confidence": "ns_is_active",
+        "name": "ns_name",
+        "dip_dir": "ns_dip_dir",
+        "downthrown_side_dir": "ns_downthrown_side_id",
+        "last_movement": "ns_last_movement",
+        "net_slip_rate": "ns_net_slip_rate",
+        "strike_slip_rate": "ns_strike_slip_rate",
+        "vert_slip_rate": "ns_vert_slip_rate",
+        "fz_name": "fs_name",
+        "slip_type": "slip_type",
+        "average_rake": "ns_average_rake",
+        "reference": "reference",
+        "exposure_quality": "ns_exposure_quality",
+        "epistemic_quality": "ns_epistemic_quality",
+        "shortening_rate": "ns_shortening_rate",
+        "notes": "notes"
+    },
+
+    "c_am_car": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "accuracy": "accuracy",
+        "average_dip": "ns_average_dip",
+        "activity_confidence": "ns_is_active",
+        "name": "ns_name",
+        "dip_dir": "ns_dip_dir",
+        "downthrown_side_dir": "ns_downthrown_side_id",
+        "last_movement": "ns_last_movement",
+        "net_slip_rate": "ns_net_slip_rate",
+        "strike_slip_rate": "ns_strike_slip_rate",
+        "vert_slip_rate": "ns_vert_slip_rate",
+        "fz_name": "fs_name",
+        "slip_type": "slip_type",
+        "average_rake": "ns_average_rake",
+        "reference": "reference",
+        "exposure_quality": "ns_exposure_quality",
+        "epistemic_quality": "ns_epistemic_quality",
+        "shortening_rate": "ns_shortening_rate",
+        "notes": "notes"
+    },
+
+    "ata": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "name": "fault_name",
+        "net_slip_rate": "slip_rate_tuple",
+        "slip_type": "slip_type",
+        "reference": "source"
+    },
+
+    "e_africa": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "slip_type":"slip_type"
+    },
+
+    "emme": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "average_dip": "dip",
+        "name": "name",
+        "average_rake": "rake"
+    },
+          
+    "eur_share": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "average_dip": "dip",
+        "average_rake": "rake",
+        "net_slip_rate": "slip_rate"
+    },
+
+    "gaf": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "accuracy": "accuracy",
+        "average_dip": "ns_average_dip",
+        "activity_confidence": "ns_is_active",
+        "name": "ns_name",
+        "dip_dir": "ns_dip_dir",
+        "downthrown_side_dir": "ns_downthrown_side_id",
+        "last_movement": "ns_last_movement",
+        "net_slip_rate": "ns_net_slip_rate",
+        "strike_slip_rate": "ns_strike_slip_rate",
+        "vert_slip_rate": "ns_vert_slip_rate",
+        "fz_name": "fs_name",
+        "slip_type": "slip_type"
+    },
+
+    "himatibetmap": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY" ,
+        "fz_name": "name",
+        "slip_type": "slip_type",
+        "reference": "source",
+        "exposure_quality": "conf"
+    },
+    
+    "myanmar": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "average_dip": "average_dip",
+        "name": "name",
+        "slip_type": "slip_type"
+    },
+
+    "philippines": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "name": "name"
+    },
+
+    "sara": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "average_dip": "average_dip",
+        "name": "name",
+        "dip_dir": "dip_dir",
+        "downthrown_side_id": "downthrown_side_id",
+        "net_slip_rate": "sr",
+        "slip_type": "slip_type"
+    },
+
+    "thailand": {
+        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "name": "name",
+        "slip_type": "slip_type"
+    }
+}
