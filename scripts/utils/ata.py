@@ -57,5 +57,3 @@ def ata_ltype_to_kinematics(row):
               1411: 'Sinistral', 0:''}
     
     return conv_d[ltype]
-
-

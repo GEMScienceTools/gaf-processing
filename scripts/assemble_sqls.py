@@ -35,3 +35,11 @@ for catalog in catalog_list:
     if catalog in cfg.sections():
         print('processing {}'.format(catalog))
         master_df = cc.process_catalog(catalog, cfg, header_dict, master_df) 
+
+
+outfile = '../gaf_out_test.sqlite'
+out_eng = sqa.create_engine('sqlite:///{}'.format(outfile))
+master_df.to_sql('global_active_faults', out_eng, index=False, 
+                 if_exists='replace')
+
+master_df.to_csv('../gaf_test.csv', index=False)
