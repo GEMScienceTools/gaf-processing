@@ -4,12 +4,23 @@ import pandas as pd
 
 
 def process_ata(ata_df):
+    """
+    Master processing function for the Active Tectonics of the Andes (ATA)
+    database. This simply runs all of the functions below and returns the
+    updated database, ready to merge.
+    """
+
     ata_df['slip_rate_tuple'] = ata_df.apply(ata_slip_rate_parse, axis=1)
     ata_df['slip_type'] = ata_df.apply(ata_ltype_to_kinematics, axis=1)
+    
     return ata_df
 
 
 def ata_slip_rate_parse(row):
+    """
+    Parses the slip rate column, yielding a tuple formatted
+    for the master database (mode, min, max).
+    """
     sr_ = row['slip_rate']
     
     if sr_ is None:
@@ -39,7 +50,6 @@ def ata_ltype_to_kinematics(row):
     dataset to kinematic type.
 
     Operates on a row from a DataFrame.
-
     """
     ltype = row['convention']
     

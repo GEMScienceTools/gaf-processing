@@ -28,11 +28,39 @@ def merge_regional_df_into_master(regional_df, master_df, merge_dict,
 
 
 def get_catalogs_from_config(cfg_obj):
+    """
+    Returns a list of catalog names (strings) from the config object
+    (`cfg_obj`) created from parsing the configuration file.
+    
+    The catalog names are listed in the `[config][catalogs]` variable.
+    """
+
     cat_string = cfg_obj.get('config', 'catalogs')
     return list(filter(None, [x.strip(',') for x in cat_string.splitlines()]))
 
 
 def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
+    """
+    Master catalog processing and merging function.
+
+    :param catalog_name:
+        Name (string) of catalog in the catalog processing configuration file.
+
+    :param cfg_obj:
+        `configparser.ConfigParser()` object created from reading the config
+        file.
+
+    :param header_dict:
+        Dictionary with column headers for the regional and master dataframes.
+        Keys are master_df headers, values are regional catalog headers.
+
+    :param master_df:
+        Pandas DataFrame of master catalog.
+
+    :returns master_df:
+        Returns updated master catalog.
+    """
+
     cfg_d = dict(cfg_obj[catalog_name])
 
     cat_engine = sqa.create_engine('sqlite:///{}'.format(cfg_d['sql_file']))
