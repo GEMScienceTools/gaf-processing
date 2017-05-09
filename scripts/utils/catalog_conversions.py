@@ -4,7 +4,8 @@ import sqlalchemy as sqa
 import numpy as np
 import pandas as pd
 
-master_df = ''
+# import catalog processing functions for each regional catalog
+from .ata import process_ata
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,
                                   catalog_name=None):
@@ -26,44 +27,25 @@ def merge_regional_df_into_master(regional_df, master_df, merge_dict,
     return pd.concat((master_df, new_df), axis=0, ignore_index=True)
 
 
-def ata_slip_rate_parse(row):
-    sr_ = row['slip_rate']
-    
-    if sr_ is None:
-        sr_tup = None
-    else:
-        sr = sr_.replace(' mm/yr','')
-        if ' - ' in sr:
-            _sr = sr.split(' - ')
-            sr_lo = leval(_sr[0])
-            sr_hi = leval(_sr[1])
-            sr_av = np.mean((sr_lo, sr_hi))
-            sr_tup = '({},{},{})'.format(sr_av, sr_lo, sr_hi)
-        elif '-' in sr:
-            _sr = sr.split('-')
-            sr_lo = leval(_sr[0])
-            sr_hi = leval(_sr[1])
-            sr_av = np.mean((sr_lo, sr_hi))
-            sr_tup = '({},{},{})'.format(sr_av, sr_lo, sr_hi)
-        else:
-            sr_tup = '({},,)'.format(leval(sr))
-    return sr_tup
+def get_catalogs_from_config(cfg_obj):
+    cat_string = cfg_obj.get('config', 'catalogs')
+    return list(filter(None, [x.strip(',') for x in cat_string.splitlines()]))
 
 
-def ltype_to_kinematics(row):
-    """
-    Converts the 'ltype' (linetype) field from the ATA and HimaTibetMap
-    datasets to kinematic type.
+def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
+    cfg_d = dict(cfg_obj[catalog_name])
 
-    Operates on a row from a DataFrame.
+    cat_engine = sqa.create_engine('sqlite:///{}'.format(cfg_d['sql_file']))
+    cat_df = pd.read_sql_table(cfg_d['table_name'], cat_engine)
 
-    """
-    ltype = row['convention']
-    
-    conv_d = {1111: 'Reverse', 1211: 'Normal', 1311: 'Dextral', 
-              1411: 'Sinistral', 0:''}
-    
-    return conv_d[ltype]
+    if 'extra_processing' in cfg_d:
+        cat_df = eval('{}(cat_df)'.format(cfg_d['extra_processing']))
 
+    master_df = merge_regional_df_into_master(cat_df, master_df,
+                                        header_dict[cfg_d['header_match_key']],
+                                        catalog_name=cfg_d['catalog_name'])
+    cat_engine.dispose()
+
+    return master_df
 
 
