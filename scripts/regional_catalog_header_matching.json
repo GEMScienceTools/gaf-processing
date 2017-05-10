@@ -89,9 +89,9 @@
 
     "himatibetmap": {
         "geometry": "geometry" ,
-        "fz_name": "name",
+        "fz_name": "Name",
         "slip_type": "slip_type",
-        "reference": "source",
+        "reference": "Source",
         "exposure_quality": "conf"
     },
     

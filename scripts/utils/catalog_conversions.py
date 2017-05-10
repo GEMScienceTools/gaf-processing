@@ -9,6 +9,7 @@ from .ata import process_ata
 from .e_africa import process_e_africa
 from .emme import process_emme
 from .eur_share import process_eur_share
+from .himatibetmap import process_htm
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,
                                   catalog_name=None):
