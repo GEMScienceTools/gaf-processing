@@ -1,6 +1,6 @@
 {
     "n_africa": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "accuracy": "accuracy",
         "average_dip": "ns_average_dip",
         "activity_confidence": "ns_is_active",
@@ -22,7 +22,7 @@
     },
 
     "c_am_car": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "accuracy": "accuracy",
         "average_dip": "ns_average_dip",
         "activity_confidence": "ns_is_active",
@@ -44,7 +44,7 @@
     },
 
     "ata": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "name": "fault_name",
         "net_slip_rate": "slip_rate_tuple",
         "slip_type": "slip_type",
@@ -52,26 +52,27 @@
     },
 
     "e_africa": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "slip_type":"slip_type"
     },
 
     "emme": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "average_dip": "dip",
         "name": "name",
+        "slip_type": "slip_type",
         "average_rake": "rake"
     },
           
     "eur_share": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "average_dip": "dip",
         "average_rake": "rake",
         "net_slip_rate": "slip_rate"
     },
 
     "gaf": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "accuracy": "accuracy",
         "average_dip": "ns_average_dip",
         "activity_confidence": "ns_is_active",
@@ -87,7 +88,7 @@
     },
 
     "himatibetmap": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY" ,
+        "geometry": "geometry" ,
         "fz_name": "name",
         "slip_type": "slip_type",
         "reference": "source",
@@ -95,19 +96,19 @@
     },
     
     "myanmar": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "average_dip": "average_dip",
         "name": "name",
         "slip_type": "slip_type"
     },
 
     "philippines": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "name": "name"
     },
 
     "sara": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "average_dip": "average_dip",
         "name": "name",
         "dip_dir": "dip_dir",
@@ -117,7 +118,7 @@
     },
 
     "thailand": {
-        "WKT_GEOMETRY": "WKT_GEOMETRY",
+        "geometry": "geometry",
         "name": "name",
         "slip_type": "slip_type"
     }
