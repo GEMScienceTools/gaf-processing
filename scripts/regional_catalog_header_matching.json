@@ -112,7 +112,7 @@
         "average_dip": "average_dip",
         "name": "name",
         "dip_dir": "dip_dir",
-        "downthrown_side_id": "downthrown_side_id",
+        "downthrown_side_id": "downt_side",
         "net_slip_rate": "sr",
         "slip_type": "slip_type"
     },
