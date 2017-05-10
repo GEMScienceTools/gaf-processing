@@ -120,6 +120,6 @@
     "thailand": {
         "geometry": "geometry",
         "name": "name",
-        "slip_type": "slip_type"
+        "slip_type": "slip type"
     }
 }
