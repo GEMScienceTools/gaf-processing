@@ -89,9 +89,9 @@
 
     "himatibetmap": {
         "geometry": "geometry" ,
-        "fz_name": "name",
+        "fz_name": "Name",
         "slip_type": "slip_type",
-        "reference": "source",
+        "reference": "Source",
         "exposure_quality": "conf"
     },
     
@@ -112,7 +112,7 @@
         "average_dip": "average_dip",
         "name": "name",
         "dip_dir": "dip_dir",
-        "downthrown_side_id": "downthrown_side_id",
+        "downthrown_side_id": "downt_side",
         "net_slip_rate": "sr",
         "slip_type": "slip_type"
     },
@@ -120,6 +120,6 @@
     "thailand": {
         "geometry": "geometry",
         "name": "name",
-        "slip_type": "slip_type"
+        "slip_type": "slip type"
     }
 }

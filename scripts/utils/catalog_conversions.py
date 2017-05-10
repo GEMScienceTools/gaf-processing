@@ -1,6 +1,5 @@
 from ast import literal_eval as leval
 import json
-import sqlalchemy as sqa
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -9,6 +8,12 @@ import geopandas as gpd
 from .ata import process_ata
 from .e_africa import process_e_africa
 from .emme import process_emme
+from .eur_share import process_eur_share
+from .himatibetmap import process_htm
+from .myanmar import process_myanmar
+from .sara import process_sara
+
+
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,
                                   catalog_name=None):
@@ -66,9 +71,7 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
 
     cfg_d = dict(cfg_obj[catalog_name])
 
-    #cat_engine = sqa.create_engine('sqlite:///{}'.format(cfg_d['sql_file']))
-    #cat_df = pd.read_sql_table(cfg_d['table_name'], cat_engine)
-    cat_df = gpd.read_file(cfg_d['gj_file'])
+    cat_df = gpd.read_file(cfg_d['gis_file'])
 
     if 'extra_processing' in cfg_d:
         cat_df = eval('{}(cat_df)'.format(cfg_d['extra_processing']))
@@ -76,7 +79,6 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
     master_df = merge_regional_df_into_master(cat_df, master_df,
                                         header_dict[cfg_d['header_match_key']],
                                         catalog_name=cfg_d['catalog_name'])
-    #cat_engine.dispose()
 
     return master_df
 
