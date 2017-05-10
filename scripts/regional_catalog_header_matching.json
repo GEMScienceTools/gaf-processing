@@ -121,5 +121,12 @@
         "geometry": "geometry",
         "name": "name",
         "slip_type": "slip type"
+    },
+
+    "usgs": {
+        "geometry": "geometry",
+        "average_dip": "average_dip",
+        "name": "NAME",
+        "slip_type": "slip_type"
     }
 }
