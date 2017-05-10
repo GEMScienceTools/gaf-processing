@@ -1,21 +1,14 @@
 import shutil
 import configparser
 import json
-import sqlalchemy as sqa
+#import sqlalchemy as sqa
 import numpy as np
 import pandas as pd
 
 from utils import catalog_conversions as cc
 
-# Copy empty SQLite file to new master file and connect
-base_schema_file = '../base_schema.sqlite'
-master_sql = '../GEM_global_active_faults.sqlite'
-
-shutil.copyfile(base_schema_file, master_sql)
-
-master_eng = sqa.create_engine('sqlite:///{}'.format(master_sql))
-master_df = pd.read_sql_table('GEM_Global_Active_Faults', master_eng)
-
+# import empty DF for the master database
+master_df = pd.read_csv('../master_df_schema.csv', index_col=1)
 
 ## import dictionary to match catalog columns
 cat_header_match_file = 'regional_catalog_header_matching.json'
@@ -36,10 +29,5 @@ for catalog in catalog_list:
         print('processing {}'.format(catalog))
         master_df = cc.process_catalog(catalog, cfg, header_dict, master_df) 
 
-
-outfile = '../gaf_out_test.sqlite'
-out_eng = sqa.create_engine('sqlite:///{}'.format(outfile))
-master_df.to_sql('global_active_faults', out_eng, index=False, 
-                 if_exists='replace')
 
 master_df.to_csv('../gaf_test.csv', index=False)
