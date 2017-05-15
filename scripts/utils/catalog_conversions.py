@@ -13,6 +13,7 @@ from .himatibetmap import process_htm
 from .myanmar import process_myanmar
 from .sara import process_sara
 from .usgs_hazfaults import process_usgs_hazfaults
+from .shyu_taiwan import process_taiwan
 
 
 

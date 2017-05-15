@@ -128,5 +128,15 @@
         "average_dip": "average_dip",
         "name": "NAME",
         "slip_type": "slip_type"
+    },
+
+    "taiwan": {
+        "geometry": "geometry",
+        "average_dip": "average_dip",
+        "slip_type": "slip_type",
+        "name": "FAULT_NAME",
+        "reference": "reference",
+        "net_slip_rate": "net_slip_rate"
     }
+
 }

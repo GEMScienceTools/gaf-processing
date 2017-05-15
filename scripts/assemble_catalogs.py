@@ -32,6 +32,8 @@ for catalog in catalog_list:
 
 master_df = gpd.GeoDataFrame(master_df) # convert to GeoPandas GeoDataFrame
 
+print('writing output files')
+
 master_df.to_file('../outputs/geojson/gem_active_faults.geojson', 
                   driver="GeoJSON")
 master_df.to_file('../outputs/shapefile/gem_active_faults.shp',
