@@ -1,3 +1,4 @@
+from ast import literal_eval
 import numpy as np
 
 
@@ -11,6 +12,7 @@ def process_eur_share(eur_df):
     eur_df['rake'] = eur_df.apply(eur_rake_to_tup, axis=1)
     eur_df['slip_rate'] = eur_df.apply(eur_slip_rate_to_tup, axis=1)
     eur_df['dip'] = eur_df.apply(eur_dip_to_tup, axis=1)
+    eur_df['slip_type'] = eur_df.apply(get_slip_type_from_rake, axis=1)
 
     return eur_df
 
@@ -48,3 +50,31 @@ def eur_slip_rate_to_tup(row):
     srmax = row['srmax']
     srav = np.mean((srmin, srmax))
     return '({:.1f},{},{})'.format(srav, srmin, srmax)
+
+
+def get_slip_type_from_rake(row):
+    rake = literal_eval(row['rake'])[0]
+    if rake > 180:
+        rake -= 360
+
+    if  -22.5 <= rake < 22.5:
+        slip_type = 'Sinistral'
+    elif 22.5 <= rake < 67.5:
+        slip_type = 'Sinistral-Reverse'
+    elif 67.5 <= rake < 112.5:
+        slip_type = 'Reverse'
+    elif 112.5 <= rake < 157.5:
+        slip_type = 'Dextral-Reverse'
+    elif 157.5 < rake <= 180:
+        slip_type = 'Dextral'
+    elif -67.5 <= rake < 22.5:
+        slip_type = 'Sinistral-Normal'
+    elif -112.5 <= rake < -67.5:
+        slip_type = 'Normal'
+    elif -157.5 <= rake < -112.5:
+        slip_type = 'Dextral-Normal'
+    elif -180 <= rake < -157.5:
+        slip_type = 'Dextral'
+    else:
+        slip_type = None
+    return slip_type

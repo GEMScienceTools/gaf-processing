@@ -68,6 +68,7 @@
         "geometry": "geometry",
         "average_dip": "dip",
         "average_rake": "rake",
+        "slip_type": "slip_type",
         "net_slip_rate": "slip_rate"
     },
 
