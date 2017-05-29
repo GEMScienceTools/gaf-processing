@@ -138,6 +138,15 @@
         "name": "FAULT_NAME",
         "reference": "reference",
         "net_slip_rate": "net_slip_rate"
+    },
+
+    "mexico": {
+        "geometry": "geometry",
+        "last_movement": "Event_Sis",
+        "dip_dir": "Dir_Inclin",
+        "reference": "Referencia",
+        "name": "Nom_Falla",
+        "slip_type": "slip_type"
     }
 
 }

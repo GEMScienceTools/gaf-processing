@@ -1,5 +1,6 @@
 from ast import literal_eval as leval
 import json
+import requests, tempfile
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -14,6 +15,7 @@ from .myanmar import process_myanmar
 from .sara import process_sara
 from .usgs_hazfaults import process_usgs_hazfaults
 from .shyu_taiwan import process_taiwan
+from .mexico import process_mexico
 
 
 
@@ -73,7 +75,16 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
 
     cfg_d = dict(cfg_obj[catalog_name])
 
-    cat_df = gpd.read_file(cfg_d['gis_file'])
+    if 'gis_file' in cfg_d.keys():
+        cat_df = gpd.read_file(cfg_d['gis_file'])
+
+    elif 'gis_file_url' in cfg_d.keys():
+        print('    downloading', cfg_d['header_match_key'], 'data')
+        tf = tempfile.NamedTemporaryFile()
+        tf.write(requests.get(cfg_d['gis_file_url']).content)
+        cat_df = gpd.read_file(tf.name)
+        tf.close()
+
 
     if 'extra_processing' in cfg_d:
         cat_df = eval('{}(cat_df)'.format(cfg_d['extra_processing']))
