@@ -9,10 +9,11 @@ def process_mexico(mx_df):
     merge.  
     """
 
-    mx_df['average_dip'] = mx_df.apply(make_dip_tup, axis=1)
     mx_df['net_slip_rate'] = mx_df.apply(process_slip_rate, axis=1)
     mx_df['slip_type'] = mx_df.apply(process_fault_type, axis=1)
     mx_df['epistemic_quality'] = mx_df.apply(process_clase, axis=1)
+    mx_df['average_dip'] = mx_df.apply(make_dip_tup, axis=1)
+
 
     return mx_df
 
@@ -51,7 +52,7 @@ def process_fault_type(row):
 
 def make_dip_tup(row):
 
-    if (row['Inclin']) is not None:
+    if (row['Inclin'] is not None) and ~np.isnan(row['Inclin']):
         dip_tup = '({},,)'.format(row['Inclin'])
     else:
         dip_tup = None
