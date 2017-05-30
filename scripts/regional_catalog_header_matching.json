@@ -143,6 +143,7 @@
     "mexico": {
         "geometry": "geometry",
         "last_movement": "Event_Sis",
+        "average_dip": "average_dip",
         "dip_dir": "Dir_Inclin",
         "reference": "Referencia",
         "name": "Nom_Falla",
