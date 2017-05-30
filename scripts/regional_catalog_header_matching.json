@@ -146,6 +146,7 @@
         "dip_dir": "Dir_Inclin",
         "reference": "Referencia",
         "name": "Nom_Falla",
+        "net_slip_rate": "net_slip_rate",
         "slip_type": "slip_type"
     }
 

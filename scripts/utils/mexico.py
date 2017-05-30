@@ -54,9 +54,9 @@ def make_dip_tup(row):
 
 
 def process_slip_rate(row):
-    if row['Taza_des'] is not None:
+    if (row['Taza_des'] is not None) and ~np.isnan(row['Taza_des']):
         sr = '({},,)'.format(row['Taza_des'])
-    elif row['Tasa_Des'] is not None:
+    elif (row['Tasa_Des'] is not None) and ~np.isnan(row['Taza_des']):
         sr = '({},,)'.format(row['Tasa_Des'])
     else:
         sr = None
