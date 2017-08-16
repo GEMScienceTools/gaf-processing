@@ -12,28 +12,35 @@ def triple_to_vals(tup):
 
 def check_triple_to_float(val):
     trip_vals = triple_to_vals(val)
+
+    if len(trip_vals) > 3:
+        return False
+
     try:
         float(trip_vals[0])
         first = True
     except:
         first = False
 
-    if trip_vals[1] != '':
-        try:
-            float(trip_vals[1])
+    try:
+        if trip_vals[1] != '':
+            try:
+                float(trip_vals[1])
+                second = True
+            except:
+                second = False
+            try:
+                float(trip_vals[2])
+                third = True
+            except:
+                third = False
+        else:
             second = True
-        except:
-            second = False
-        try:
-            float(trip_vals[2])
             third = True
-        except:
-            third = False
-    else:
-        second = True
-        third = True
 
-    return (first and second and third)
+        return (first and second and third)
+    except:
+        return False
 
 
 def check_triple_sort(val):
@@ -64,12 +71,12 @@ def check_int_value(val, accept_none=True):
     # allowable: 0, 1, 2 ?
     if pd.isnull(val) or val == '':
         return accept_none
-    else:
-        is_int = isinstance(val, int)
-        if is_int:
-            return (val in (1, 2))    
-        else:
-            return False
+        
+    try:
+        val_ = int(val)
+        return (val_ in (1, 2))
+    except:
+        return False
 
   
 def change_int_value(val, replace_bad=True, bad_value=None):
@@ -111,12 +118,11 @@ def check_str(val, accept_none=False):
 def check_accuracy_value(val, accept_none=True):
     if pd.isnull(val) or val == '':
         return accept_none
-    else:
-        is_int = isinstance(val, int)
-        if is_int:
-            return (val > 0)
-        else:
-            return False
+    try:
+        val_ = int(val)
+        return (val_ > 0)
+    except:
+       return False
 
   
 def change_accuracy_value(val, replace_bad=True, bad_value=None):
@@ -133,8 +139,13 @@ def change_activity_confidence(val, replace_bad=False, bad_return_val=None):
 
 
 def check_average_dip(val, accept_none=True):
+    if pd.isnull(val) or val == '':
+        return accept_none
+
     if not check_triple(val, accept_none):
         return False
+
+    vals = triple_to_vals(val)
 
     try:
         if not (0 <= float(vals[0]) <=90):
@@ -159,19 +170,21 @@ def change_average_dip(val, replace_bad=False, bad_return_val=None):
 
 def check_average_rake(val, accept_none=True):
     if not check_triple(val, accept_none):
-        return False
+        return (False, 'triple')
+
+    vals = triple_to_vals(val)
     
     try:
         if not (-180 <= float(vals[0]) <= 180):
-            return False
+            return (False, 'val0')
     except:
-        return False
+        return (False, 'val0_comp')
     
     if vals[1] != '':
         if not (-180 <= float(vals[1]) <= 180):
-            return False
+            return (False, 'val1')
         if not (-180 <= float(vals[2]) <= 180):
-            return False
+            return (False, 'val2')
 
     return True
 
@@ -377,9 +390,10 @@ def check_value(val, idx, column, accept_none=True, change_val=False,
             log = 'Bad value: `{val}` in {col} at index {ind}...{act}'.format(
                 **{'val': val, 'col': column, 'ind': idx, 'act': action})
             if action == 'fixed':
-                logging.info(log)
+                #logging.info(log)
+                pass
             elif action in ["skipping", "couldn't fix"]:
-                logging.exception(log)
+                logging.info(log)
 
         if action == 'fixed':
             return (idx, new_val) # do I want to do this here?
