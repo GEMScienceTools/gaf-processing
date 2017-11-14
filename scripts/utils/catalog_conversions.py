@@ -16,6 +16,7 @@ from .sara import process_sara
 from .usgs_hazfaults import process_usgs_hazfaults
 from .shyu_taiwan import process_taiwan
 from .mexico import process_mexico
+from .bird_pb import process_bird_pb
 
 
 
