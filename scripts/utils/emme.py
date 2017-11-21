@@ -8,12 +8,60 @@ def process_emme(emme_df):
     """
 
     emme_df['slip_type'] = emme_df.apply(get_slip_type_from_rake, axis=1)
+    emme_df['rake'] = emme_df.apply(rake_to_tup, axis=1)
+    emme_df['dip'] = emme_df.apply(dip_to_tup, axis=1)
+    emme_df['slip_rate'] = emme_df.apply(slip_rate_to_tup, axis=1)
+    emme_df['epistemic_quality'] = emme_df.apply(epist_quality, axis=1)
 
     return emme_df
 
 
+def epist_quality(row):
+    if row['CLASS'] == 'A':
+        return 0
+    elif row['CLASS'] == 'B':
+        return 1
+    elif row['CLASS'] == 'C':
+        return 2
+
+
+def rake_to_tup(row):
+    """
+    Converts the `rakemin` and `rakemax` data into a tuple
+    with the mean rake as the mid range value.
+    """
+    rkmin = row['RAKEMIN']
+    rkmax = row['RAKEMAX']
+    rkav = np.mean((rkmin, rkmax))
+    
+    return '({},{},{})'.format(int(rkav), rkmin, rkmax)
+
+
+def dip_to_tup(row):
+    """
+    Converts the `rakemin` and `rakemax` data into a tuple
+    with the mean rake as the mid range value.
+    """
+    dpmin = row['DIPMIN']
+    dpmax = row['DIPMAX']
+    dpav = np.mean((dpmin, dpmax))
+    
+    return '({:.1f},{},{})'.format(dpav, dpmin, dpmax)
+
+
+def slip_rate_to_tup(row):
+    """
+    Converts the `ratemin` and `ratemax` data into a tuple
+    with the mean rate as the mid range value.
+    """
+    srmin = row['SRMIN']
+    srmax = row['SRMAX']
+    srav = np.mean((srmin, srmax))
+    return '({:.1f},{},{})'.format(srav, srmin, srmax)
+
+
 def get_slip_type_from_rake(row):
-    rake = float(row['rake'])
+    rake = np.mean([row['RAKEMIN'], row['RAKEMAX']])
 
     if -22.5 <= rake < 22.5:
         slip_type = 'Sinistral'
