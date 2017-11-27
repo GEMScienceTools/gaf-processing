@@ -46,14 +46,14 @@ mdf = filter_faults_inside_other_dataset(mdf, 'Bird 2003',
                                          'GEM_Central_Am_Carib',
                                          inside_type='intersects')
 
-#print('Filtering Bird faults with ATA overlap...')
-#mdf = filter_faults_inside_other_dataset(mdf, 'Bird 2003',
-#                                         'Active Tectonics of the Andes',
-#                                         inside_type='intersects')
+print('Filtering Bird faults with ATA overlap...')
+mdf = filter_faults_inside_other_dataset(mdf, 'Bird 2003',
+                                         'Active Tectonics of the Andes',
+                                         inside_type='intersects')
 
-print('Filtering Bird faults that cross ATA faults...')
-mdf = filter_faults_crossing_other_faults(mdf, 'Bird 2003',
-                                          'Active Tectonics of the Andes')
+#print('Filtering Bird faults that cross ATA faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'Bird 2003',
+#                                          'Active Tectonics of the Andes')
 
 print('Filtering Bird faults with SARA overlap...')
 mdf = filter_faults_inside_other_dataset(mdf, 'Bird 2003', 'SARA',
