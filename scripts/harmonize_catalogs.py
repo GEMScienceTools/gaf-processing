@@ -9,6 +9,7 @@ from utils.filtering import (drop_bad_geometries,
 
 master_df = gpd.read_file('../outputs/geojson/gem_active_faults.geojson')
 mdf_write_path = '../outputs/geojson/gem_active_faults_harmonized.geojson'
+mdf_write_path_shp = '../outputs/shapefile/gem_active_faults_harmonized.shp'
 
 mdf = master_df.copy(deep=True)
 n_faults_init = len(mdf)
@@ -94,3 +95,4 @@ except:
     pass
 
 mdf.to_file(mdf_write_path, driver='GeoJSON')
+mdf.to_file(mdf_write_path_shp)
