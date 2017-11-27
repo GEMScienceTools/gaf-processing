@@ -12,7 +12,8 @@ def process_bird_pb(bird_df):
 
     bird_df = bird_df.copy(deep=True)
 
-    bird_df = bird_keep_boundary_types(bird_df)
+    bird_df = bird_keep_boundary_types(bird_df, 
+                                       retain_types=('SUB','OSR','OTF','OCB'))
     bird_df['slip_type'] = bird_df.apply(bird_slip_type_parse, axis=1)
     #bird_df['average_rake'] = bird_df.apply(bird_rake_parse, axis=1)
     bird_df['net_slip_rate'] = bird_df.apply(bird_slip_rate_parse, axis=1)
