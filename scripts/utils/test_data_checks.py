@@ -12,7 +12,7 @@ logging.basicConfig(filename=logfile,
                     )
 
 
-mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults.geojson')
+mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults_harmonized.geojson')
 
 
 #print(check_average_dip('(89,89,90)'))
@@ -25,4 +25,4 @@ for val_type in check_val_funcs.keys():
     print('checking {}'.format(val_type))
     logging.info('checking {}'.format(val_type))
     _ = [check_value(val, idx, val_type, change_val=False)
-         for idx, val in mdf[val_type].iteritems()]
+         for idx, val in mdf[[val_type, 'catalog_name']].iterrows()]
