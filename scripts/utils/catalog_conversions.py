@@ -2,7 +2,6 @@ from ast import literal_eval as leval
 import json
 import requests
 import tempfile
-import shutil
 import os
 import numpy as np
 import pandas as pd
@@ -21,6 +20,21 @@ from .shyu_taiwan import process_taiwan
 from .mexico import process_mexico
 from .bird_pb import process_bird_pb
 
+
+# This makes a dictionary of the imported processing master functions above
+# to be called by the string version of the function
+fn_dict = {}
+fn_dict['process_ata'] = process_ata
+fn_dict['process_e_africa'] = process_e_africa
+fn_dict['process_emme'] = process_emme
+fn_dict['process_eur_share'] = process_eur_share
+fn_dict['process_htm'] = process_htm
+fn_dict['process_myanmar'] = process_myanmar
+fn_dict['process_sara'] = process_sara
+fn_dict['process_usgs_hazfaults'] = process_usgs_hazfaults
+fn_dict['process_taiwan'] = process_taiwan
+fn_dict['process_mexico'] = process_mexico
+fn_dict['process_bird_pb'] = process_bird_pb
 
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,
@@ -95,7 +109,7 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
 
 
     if 'extra_processing' in cfg_d:
-        cat_df = eval('{}(cat_df)'.format(cfg_d['extra_processing']))
+        cat_df = fn_dict[cfg_d['extra_processing']](cat_df)
 
     master_df = merge_regional_df_into_master(cat_df, master_df,
                                         header_dict[cfg_d['header_match_key']],

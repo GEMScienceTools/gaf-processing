@@ -5,8 +5,9 @@ def process_myanmar(myr_df):
     the updated database, ready to merge.
     """
 
-    myr_df = modify_slip_type(myr_df)
+    #myr_df = modify_slip_type(myr_df) # already done to GeoJSON manually
     myr_df = format_dip(myr_df)
+    myr_df['net_slip_rate'] = myr_df.apply(format_slip_rate, axis=1)
 
     return myr_df
 
@@ -31,3 +32,21 @@ def format_dip(myr_df):
     myr_df['average_dip'] = ['({},,)'.format(dip) for dip in myr_df['dip']]
     
     return myr_df
+
+
+def format_slip_rate(row):
+    u = row['upper slip']
+    l = row['lower slip']
+
+    if u == -999:
+        if l == -999:
+            sr = None
+        else:
+            sr = '({},,{})'.format(l, l)
+    else:
+        if l == -999:
+            sr = '({},{},)'.format(u, u)
+        else:
+            sr = '({},{},{})'.format((u+l)/2, u, l)
+
+    return sr
