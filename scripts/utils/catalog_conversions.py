@@ -19,7 +19,7 @@ from .usgs_hazfaults import process_usgs_hazfaults
 from .shyu_taiwan import process_taiwan
 from .mexico import process_mexico
 from .bird_pb import process_bird_pb
-
+from .nz_litchfield import process_nz_litchfield
 
 # This makes a dictionary of the imported processing master functions above
 # to be called by the string version of the function
@@ -35,6 +35,7 @@ fn_dict['process_usgs_hazfaults'] = process_usgs_hazfaults
 fn_dict['process_taiwan'] = process_taiwan
 fn_dict['process_mexico'] = process_mexico
 fn_dict['process_bird_pb'] = process_bird_pb
+fn_dict['process_nz_litchfield'] = process_nz_litchfield
 
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,

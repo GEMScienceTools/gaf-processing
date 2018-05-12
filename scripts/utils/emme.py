@@ -63,7 +63,7 @@ def slip_rate_to_tup(row):
 def get_slip_type_from_rake(row):
     rake = np.mean([row['RAKEMIN'], row['RAKEMAX']])
 
-    if -22.5 <= rake < 22.5:
+    if (-22.5 <= rake < 22.5) or (337.5 <= rake <= 360):
         slip_type = 'Sinistral'
     elif 22.5 <= rake < 67.5:
         slip_type = 'Sinistral-Reverse'
@@ -71,15 +71,15 @@ def get_slip_type_from_rake(row):
         slip_type = 'Reverse'
     elif 112.5 <= rake < 157.5:
         slip_type = 'Dextral-Reverse'
-    elif 157.5 < rake <= 180:
+    elif 157.5 <= rake < 180:
         slip_type = 'Dextral'
-    elif -67.5 <= rake < 22.5:
+    elif (-67.5 <= rake < 22.5) or (292.5 <= rake <= 337.5):
         slip_type = 'Sinistral-Normal'
-    elif -112.5 <= rake < -67.5:
+    elif (-112.5 <= rake < -67.5) or (247.5 <= rake < 292.5):
         slip_type = 'Normal'
-    elif -157.5 <= rake < -112.5:
+    elif (-157.5 <= rake < -112.5) or (202.5 <= rake < 247.5):
         slip_type = 'Dextral-Normal'
-    elif -180 <= rake < -157.5:
+    elif (-180 <= rake < -157.5) or (180 <= rake < 202.5):
         slip_type = 'Dextral'
     else:
         slip_type = None
