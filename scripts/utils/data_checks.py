@@ -383,17 +383,14 @@ change_val_funcs = {
     }
 
 
-def check_value(val_cat, idx, column, accept_none=True, change_val=False,
+def check_value(row, idx, column, accept_none=True, change_val=False,
                 report=True, _cat=False):
     """
     docs
     """
 
-    if _cat:
-        val = val_cat[column]
-        catalog_name = val_cat['catalog_name']
-    else:
-        val = val_cat
+    val = row[column]
+    catalog_name = row['catalog_name']
 
     if check_val_funcs[column](val, accept_none):
         pass  # value checked out

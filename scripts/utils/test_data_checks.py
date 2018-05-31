@@ -5,7 +5,7 @@ import geopandas as gpd
 from data_checks import *# check_value
 
 
-logfile = './test_log.log'
+logfile = './test_data_checks.log'
 
 logging.basicConfig(filename=logfile,
                     level=logging.DEBUG,
@@ -21,8 +21,8 @@ mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults
 #print(check_average_dip('(89,,)'))
 
 
-for val_type in check_val_funcs.keys():
-    print('checking {}'.format(val_type))
-    logging.info('checking {}'.format(val_type))
-    _ = [check_value(val, idx, val_type, change_val=False)
-         for idx, val in mdf[[val_type, 'catalog_name']].iterrows()]
+for column in check_val_funcs.keys():
+    print('checking {}'.format(column))
+    logging.info('checking {}'.format(column))
+    _ = [check_value(row, idx, column, change_val=False)
+         for idx, row in mdf[[column, 'catalog_name']].iterrows()]
