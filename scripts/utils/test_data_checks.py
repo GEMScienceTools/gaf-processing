@@ -8,12 +8,14 @@ from data_checks import *# check_value
 logfile = './test_data_checks.log'
 
 logging.basicConfig(filename=logfile,
-                    level=logging.DEBUG,
+                    level=logging.INFO,
                     )
 
 
-mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults_harmonized.geojson')
-
+#mdf_path = '../../../gem-global-active-faults/geojson/gem_active_faults_harmonized.geojson'
+mdf_path = '../../outputs/geojson/gem_active_faults_harmonized.geojson'
+mdf = gpd.read_file(mdf_path)
+    
 
 for column in check_val_funcs.keys():
     print('checking {}'.format(column))
@@ -29,3 +31,6 @@ for column in check_val_funcs.keys():
                 changes.append(cr[1])
 
     mdf.at[change_idxs, column] = changes
+
+mdf.to_file('../../outputs/geojson/gem_active_faults_corrected.geojson',
+            driver='GeoJSON')
