@@ -15,14 +15,17 @@ logging.basicConfig(filename=logfile,
 mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults_harmonized.geojson')
 
 
-#print(check_average_dip('(89,89,90)'))
-#print(check_average_dip('(88,89,90)'))
-#print(check_average_dip('(89,89,90.5)'))
-#print(check_average_dip('(89,,)'))
-
-
 for column in check_val_funcs.keys():
     print('checking {}'.format(column))
     logging.info('checking {}'.format(column))
-    _ = [check_value(row, idx, column, change_val=False)
-         for idx, row in mdf[[column, 'catalog_name']].iterrows()]
+    check_results = [check_value(row, idx, column, change_val=True)
+                     for idx, row in mdf.iterrows()]
+    changes = []
+    change_idxs = []
+    for cr in check_results:
+        if cr is not None:
+            if cr[1] is not None:
+                change_idxs.append(cr[0])
+                changes.append(cr[1])
+
+    mdf.at[change_idxs, column] = changes

@@ -4,6 +4,11 @@ import pandas as pd
 
 """ value checkers and changers """
 
+
+##########
+# triples
+##########
+
 def triple_to_vals(tup):
     tup = tup.replace('(','').replace(')','')
     vals = tup.split(',')
@@ -60,18 +65,37 @@ def sort_triple(val):
     return (sort_vals[1], sort_vals[0], sort_vals[2])
 
 
-def change_value(val, check_func, replace_bad, bad_value):
-    if not replace_bad:
-        bad_return_val = val
+def check_triple(val, accept_none=False):
+    if pd.isnull(val) or val == '':
+        return accept_none
 
     try:
-        new_val = int(val)
-        if check_func(new_val):
-            return new_val, True
-        else:
-            return bad_return_val, False
+        vals = triple_to_vals(val)
     except:
-        return bad_return_val, False
+        return False
+
+    if not check_triple_to_float(val):
+        return False
+    if not check_triple_sort(val):
+        return False
+
+    return True
+
+
+def change_triple_sort(bad_trip):
+    if isinstance(bad_trip, str):
+        trip_vals = triple_to_vals(bad_trip)
+        sv = sorted(v for v in trip_vals if v is not '')
+    else:
+        sv = sorted(bad_trip)
+
+    if len(sv) == 1:
+        return '({},,)'.format(sv[0])
+    elif len(sv) == 2:
+        sv = [float(sv) for v in sv]
+        sv.append(np.mean(sv))
+
+        return sort_triple(sv)
 
 
 def check_int_value(val, accept_none=True):
@@ -88,23 +112,6 @@ def check_int_value(val, accept_none=True):
   
 def change_int_value(val, replace_bad=True, bad_value=None):
     return change_value(val, check_int_value, replace_bad, bad_value)
-
-
-def check_triple(val, accept_none=False):
-    if pd.isnull(val) or val == '':
-        return accept_none
-
-    try:
-        vals = triple_to_vals(val)
-    except:
-        return False
-
-    if not check_triple_to_float(val):
-        return False
-    if not check_triple_sort(val):
-        return False
-
-    return True
 
 
 def check_dir_str(val, accept_none=False):
@@ -153,26 +160,32 @@ def check_average_dip(val, accept_none=True):
         return False
 
     vals = triple_to_vals(val)
+    return check_dip_magnitudes(vals)
 
-    try:
-        if not (0 <= float(vals[0]) <=90):
-            return False
-    except:
-        return False
-    
-    if vals[1] != '':
-        if not (0 <= float(vals[1]) <=90):
-            return False
-        if not (0 <= float(vals[2]) <=90):
-            return False
 
-    return True
+def check_dip_magnitudes(vals):
+    for val in vals:
+        if val != '':
+            if not (0 <= float(val) <= 90):
+                return False
+    else:
+        return True
 
 
 def change_average_dip(val, replace_bad=False, bad_return_val=None):
     # return change_value(val, check_average_dip, replace_bad, bad_return_val)
     # need to think about defauts for this
-    pass
+    if not check_dip_magnitudes(triple_to_vals(val)):
+        success = False
+        return val, success
+
+    try:
+        good_val = change_triple_sort(val)
+        success = True
+        return good_val, success
+    except:
+        success = False
+        return val, success
 
 
 def check_average_rake(val, accept_none=True):
@@ -199,10 +212,31 @@ def check_average_rake(val, accept_none=True):
     return True
 
 
+def rake_to_aki_richards(rake):
+    while rake >= 180:
+        rake -= 360
+
+    while rake <= -180:
+        rake += 360
+
+    return rake
+
+
 def change_average_rake(val, replace_bad=False, bad_return_val=None):
     # return change_value(val, check_average_rake, replace_bad, bad_return_val)
     # need to think about defauts for this
-    pass
+    try:
+        vals = triple_to_vals(val)
+        for val in vals:
+            if val is not '':
+                val = str(rake_to_aki_richards(float(val)))
+        good_val = change_triple_sort(vals)
+        success = True
+        return good_val, success
+
+    except Exception as e:
+        logging.info(e)
+        return val, False
 
 
 def check_catalog_name(val, accept_none=True):
@@ -414,5 +448,19 @@ def check_value(row, idx, column, accept_none=True, change_val=False,
 
         if action == 'fixed':
             return (idx, new_val) # do I want to do this here?
+
+
+def change_value(val, check_func, replace_bad, bad_value):
+    if not replace_bad:
+        bad_return_val = val
+
+    try:
+        new_val = int(val)
+        if check_func(new_val):
+            return new_val, True
+        else:
+            return bad_return_val, False
+    except:
+        return bad_return_val, False
 
 
