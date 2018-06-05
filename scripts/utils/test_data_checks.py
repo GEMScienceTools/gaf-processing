@@ -5,24 +5,32 @@ import geopandas as gpd
 from data_checks import *# check_value
 
 
-logfile = './test_log.log'
+logfile = './test_data_checks.log'
 
 logging.basicConfig(filename=logfile,
-                    level=logging.DEBUG,
+                    level=logging.INFO,
                     )
 
 
-mdf = gpd.read_file('../../../gem-global-active-faults/geojson/gem_active_faults.geojson')
+#mdf_path = '../../../gem-global-active-faults/geojson/gem_active_faults_harmonized.geojson'
+mdf_path = '../../outputs/geojson/gem_active_faults_harmonized.geojson'
+mdf = gpd.read_file(mdf_path)
+    
 
+for column in check_val_funcs.keys():
+    print('checking {}'.format(column))
+    logging.info('checking {}'.format(column))
+    check_results = [check_value(row, idx, column, change_val=True)
+                     for idx, row in mdf.iterrows()]
+    changes = []
+    change_idxs = []
+    for cr in check_results:
+        if cr is not None:
+            if cr[1] is not None:
+                change_idxs.append(cr[0])
+                changes.append(cr[1])
 
-#print(check_average_dip('(89,89,90)'))
-#print(check_average_dip('(88,89,90)'))
-#print(check_average_dip('(89,89,90.5)'))
-#print(check_average_dip('(89,,)'))
+    mdf.at[change_idxs, column] = changes
 
-
-for val_type in check_val_funcs.keys():
-    print('checking {}'.format(val_type))
-    logging.info('checking {}'.format(val_type))
-    _ = [check_value(val, idx, val_type, change_val=False)
-         for idx, val in mdf[val_type].iteritems()]
+mdf.to_file('../../outputs/geojson/gem_active_faults_corrected.geojson',
+            driver='GeoJSON')

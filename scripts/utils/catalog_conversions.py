@@ -2,6 +2,7 @@ from ast import literal_eval as leval
 import json
 import requests
 import tempfile
+import os
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -100,10 +101,14 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
 
     elif 'gis_file_url' in cfg_d.keys():
         print('    downloading', cfg_d['header_match_key'], 'data')
-        tf = tempfile.NamedTemporaryFile()
-        tf.write(requests.get(cfg_d['gis_file_url']).content)
-        cat_df = gpd.read_file(tf.name)
-        tf.close()
+        #tf = tempfile.NamedTemporaryFile()
+        _make_dir('./tmp')
+        with open('./tmp/temp.geojson', 'w') as tf:
+            tf.write(requests.get(cfg_d['gis_file_url']).content.decode())
+            cat_df = gpd.read_file(tf.name)
+
+        os.remove('./tmp/temp.geojson')
+        os.rmdir('./tmp')
 
 
     if 'extra_processing' in cfg_d:
@@ -116,3 +121,9 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
     return master_df
 
 
+def _make_dir(dirpath):
+    try:
+        os.makedirs(dirpath)
+    except OSError:
+        if not os.path.isdir(dirpath):
+            raise

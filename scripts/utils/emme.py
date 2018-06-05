@@ -18,11 +18,11 @@ def process_emme(emme_df):
 
 def epist_quality(row):
     if row['CLASS'] == 'A':
-        return 0
-    elif row['CLASS'] == 'B':
         return 1
-    elif row['CLASS'] == 'C':
+    elif row['CLASS'] == 'B':
         return 2
+    elif row['CLASS'] == 'C':
+        return 3
 
 
 def rake_to_tup(row):
