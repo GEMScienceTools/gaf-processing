@@ -5,7 +5,9 @@ import configparser
 import pandas as pd
 import geopandas as gpd
 
+
 from utils import catalog_conversions as cc
+from utils.data_checks import check_data
 
 # import empty DF for the master database
 master_df = pd.read_csv('../master_df_schema.csv', index_col=1)
@@ -30,10 +32,16 @@ for catalog in catalog_list:
 
 master_df = gpd.GeoDataFrame(master_df) # convert to GeoPandas GeoDataFrame
 
+print('checking data')
+
+master_df = check_data(master_df, logfile='./data_check.log')
+
 print('writing output files')
 
 master_df.to_file('../outputs/geojson/gem_active_faults.geojson',
                   driver="GeoJSON")
+master_df.to_file('../outputs/geopackage/gem_active_faults.gpkg',
+                  driver="GPKG")
 master_df.to_file('../outputs/shapefile/gem_active_faults.shp',
                   driver="ESRI Shapefile")
 
