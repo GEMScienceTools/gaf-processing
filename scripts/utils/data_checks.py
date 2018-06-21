@@ -553,12 +553,8 @@ def change_value(val, check_func, replace_bad, bad_value):
 
 
     
-def check_data(mdf, logfile='./data_checks.log'):
-    
-    logging.basicConfig(filename=logfile,
-                        level=logging.INFO,
-                        filemode='w',
-                        )
+def check_data(mdf):
+   
 
     for column in check_val_funcs.keys():
         print('checking {}'.format(column))
