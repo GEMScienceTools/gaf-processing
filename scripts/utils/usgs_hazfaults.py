@@ -24,8 +24,8 @@ def _process_dips(row):
         try:
             dip_list = dip_str.split('/')
             dips = [int(dip) for dip in dip_list]
-            dip_tup = dip_tup.format(*dips)
-            dip_tup = (dip_tup[0], dip_tup[2], dip_tup[1])
+            #dip_tup = dip_tup.format(*dips)
+            dip_tup = str((dips[0], dips[2], dips[1]))
         except ValueError:
             dip_str = re.sub('\D', '', dip_str)
             dip = int(dip_str)

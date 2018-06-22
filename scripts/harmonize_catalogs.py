@@ -9,6 +9,7 @@ from utils.filtering import (drop_bad_geometries,
 
 master_df = gpd.read_file('../outputs/geojson/gem_active_faults.geojson')
 mdf_write_path = '../outputs/geojson/gem_active_faults_harmonized.geojson'
+mdf_write_path_gpkg = '../outputs/geopackage/gem_active_faults_harmonized.gpkg'
 mdf_write_path_shp = '../outputs/shapefile/gem_active_faults_harmonized.shp'
 
 mdf = master_df.copy(deep=True)
@@ -36,11 +37,17 @@ mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EMME')
 print('Filtering HimatTibetMap faults that cross NE Asia faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'GEM_NE_Asia')
 
+#print('Filtering HimatTibetMap faults that cross SE Asia faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EOS_SE_Asia')
+
 print('Filtering Thailand faults that cross HimatTibetMap faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'thailand', 'HimaTibetMap')
 
 print('Filtering Bird faults that cross SHARE faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'Bird 2003', 'SHARE')
+
+#print('Filtering Bird faults that cross SE Asia faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'Bird 2003', 'EOS_SE_Asia')
 
 print('Filtering Bird faults with CCARA overlap...')
 mdf = filter_faults_inside_other_dataset(mdf, 'Bird 2003',
@@ -68,9 +75,9 @@ print('Filtering ATA faults that cross SARA faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'Active Tectonics of the Andes',
                                           'SARA')
 
-print('Filtering Mexico faults that cross US Faults...')
-mdf = filter_faults_crossing_other_faults(mdf, 'Villegas Mexico',
-                                          'USGS Hazfaults 2014')
+print('Filtering US faults that cross Mexico...')
+mdf = filter_faults_crossing_other_faults(mdf, 'USGS Hazfaults 2014', 
+                                          'Villegas Mexico')
 
 print('Filtering Africa faults with EMME overlap...')
 mdf = filter_faults_inside_other_dataset(mdf, 'Macgregor_AfricaFaults', 'EMME',
@@ -95,4 +102,5 @@ except:
     pass
 
 mdf.to_file(mdf_write_path, driver='GeoJSON')
+mdf.to_file(mdf_write_path_gpkg, driver='GPKG')
 mdf.to_file(mdf_write_path_shp)

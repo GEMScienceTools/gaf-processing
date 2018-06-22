@@ -51,6 +51,7 @@ def filter_faults_inside_other_dataset(master_df, remove_key, keep_key,
         print(inside_inds)
 
     mdf = master_df.drop(inside_inds)
+    mdf = mdf.reset_index(drop=True)
 
     return mdf
 
@@ -89,6 +90,7 @@ def filter_faults_crossing_other_faults(master_df, remove_key, keep_key,
         print(crossing_inds)
 
     mdf = master_df.drop(crossing_inds)
+    mdf = mdf.reset_index(drop=True)
 
     return mdf
 
@@ -100,6 +102,7 @@ def drop_bad_geometries(master_df, verbose=False):
     bad_geom_inds = master_df.loc[bad_geoms].index
 
     mdf = master_df.drop(bad_geom_inds)
+    mdf = mdf.reset_index(drop=True)
     new_n_faults = mdf.shape[0]
 
     if verbose is True:
