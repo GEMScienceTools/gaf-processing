@@ -52,6 +52,9 @@ def merge_regional_df_into_master(regional_df, master_df, merge_dict,
         Regional fault DataFrame.
 
     """
+
+    merge_dict['catalog_id'] = 'catalog_id'
+
     merge_gen = (pd.Series({k:row[v] for k, v in merge_dict.items()})
                  for i, row in regional_df.iterrows())
     new_df = pd.concat(merge_gen, axis=1).T
@@ -96,6 +99,8 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
 
     cfg_d = dict(cfg_obj[catalog_name])
 
+    abbrev = cfg_d['abbrev']
+
     if 'gis_file' in cfg_d.keys():
         cat_df = gpd.read_file(cfg_d['gis_file'])
 
@@ -114,11 +119,29 @@ def process_catalog(catalog_name, cfg_obj, header_dict, master_df):
     if 'extra_processing' in cfg_d:
         cat_df = fn_dict[cfg_d['extra_processing']](cat_df)
 
+    cat_df = make_catalog_id(cat_df, abbrev, 
+                             header_dict[cfg_d['header_match_key']])
+
     master_df = merge_regional_df_into_master(cat_df, master_df,
                                         header_dict[cfg_d['header_match_key']],
                                         catalog_name=cfg_d['catalog_name'])
 
     return master_df
+
+
+def make_catalog_id(cat_df, abbrev, header_dict):
+
+    if 'catalog_id' in header_dict.keys():
+        _id = cat_df[header_dict['catalog_id']]
+
+    else:
+        _id = cat_df.index.tolist()
+
+    id_list = ['{}_{}'.format(abbrev, i) for i in _id]
+
+    cat_df['catalog_id'] = id_list
+    
+    return cat_df
 
 
 def _make_dir(dirpath):

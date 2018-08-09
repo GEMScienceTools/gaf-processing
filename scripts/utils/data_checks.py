@@ -538,8 +538,8 @@ def check_value(row, idx, column, accept_none=True, change_val=False,
             return (idx, new_val) # do I want to do this here?
 
 
-def change_value(val, check_func, replace_bad, bad_value):
-    if not replace_bad:
+def change_value(val, check_func, replace_bad, bad_return_val):
+    if replace_bad is False:
         bad_return_val = val
 
     try:
@@ -549,6 +549,7 @@ def change_value(val, check_func, replace_bad, bad_value):
         else:
             return bad_return_val, False
     except:
+
         return bad_return_val, False
 
 

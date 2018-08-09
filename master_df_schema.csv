@@ -1,1 +1,1 @@
-WKT_GEOMETRY,catalog_id,accuracy,average_dip,is_active,name,dip_dir,downthrown_side_dir,last_movement,net_slip_rate,strike_slip_rate,vert_slip_rate,fz_name,slip_type,average_rake,reference,exposure_quality,epistemic_quality,shortening_rate,notes
+ogc_fid,catalog_id,name,fs_name,is_active,exposure_quality,epistemic_quality,accuracy,slip_type,average_dip,average_rake,dip_dir,downthrown_side_dir,net_slip_rate,strike_slip_rate,vert_slip_rate,shortening_rate,upper_seis_depth,lower_seis_depth,last_movement,reference,notes,WKT_GEOMETRY

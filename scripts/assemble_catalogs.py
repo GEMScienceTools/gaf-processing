@@ -50,9 +50,9 @@ logging.info('writing geojson')
 master_df.to_file('../outputs/geojson/gem_active_faults.geojson',
                   driver="GeoJSON")
 
-logging.info('writing geopackage')
-master_df.to_file('../outputs/geopackage/gem_active_faults.gpkg',
-                  driver="GPKG")
+#logging.info('writing geopackage')
+#master_df.to_file('../outputs/geopackage/gem_active_faults.gpkg',
+#                  driver="GPKG")
 
 logging.info('writing shapefile')
 master_df.to_file('../outputs/shapefile/gem_active_faults.shp',
