@@ -25,11 +25,11 @@ print('Filtering SHARE faults with N_Africa overlap...')
 mdf = filter_faults_inside_other_dataset(mdf, 'SHARE', 'GEM_N_Africa',
                                          inside_type='intersects')
 
-print('Filtering Thailand faults that cross Myanmar faults...')
-mdf = filter_faults_crossing_other_faults(mdf, 'thailand', 'myanmar')
+#print('Filtering Thailand faults that cross Myanmar faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'thailand', 'myanmar')
 
-print('Filtering HimatTibetMap faults that cross Myanmar faults...')
-mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'myanmar')
+#print('Filtering HimatTibetMap faults that cross Myanmar faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'myanmar')
 
 print('Filtering HimatTibetMap faults that cross EMME faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EMME')
@@ -37,11 +37,11 @@ mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EMME')
 print('Filtering HimatTibetMap faults that cross NE Asia faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'GEM_NE_Asia')
 
-#print('Filtering HimatTibetMap faults that cross SE Asia faults...')
-#mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EOS_SE_Asia')
+print('Filtering HimatTibetMap faults that cross SE Asia faults...')
+mdf = filter_faults_crossing_other_faults(mdf, 'HimaTibetMap', 'EOS_SE_Asia')
 
-print('Filtering Thailand faults that cross HimatTibetMap faults...')
-mdf = filter_faults_crossing_other_faults(mdf, 'thailand', 'HimaTibetMap')
+#print('Filtering Thailand faults that cross HimatTibetMap faults...')
+#mdf = filter_faults_crossing_other_faults(mdf, 'thailand', 'HimaTibetMap')
 
 print('Filtering Bird faults that cross SHARE faults...')
 mdf = filter_faults_crossing_other_faults(mdf, 'Bird 2003', 'SHARE')
@@ -102,5 +102,5 @@ except:
     pass
 
 mdf.to_file(mdf_write_path, driver='GeoJSON')
-mdf.to_file(mdf_write_path_gpkg, driver='GPKG')
+#mdf.to_file(mdf_write_path_gpkg, driver='GPKG')
 mdf.to_file(mdf_write_path_shp)
