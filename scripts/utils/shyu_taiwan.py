@@ -7,8 +7,23 @@ def process_taiwan(tdf):
     tdf['slip_type'] = tdf.apply(_process_fault_type, axis=1)
     tdf['net_slip_rate'] = tdf.apply(_process_slip_rate, axis=1)
     tdf['reference'] = tdf.apply(_process_reference, axis=1)
+    tdf['lower_seis_depth'] = tdf.apply(lsd, axis=1)
+    tdf['upper_seis_depth'] = tdf.apply(usd, axis=1)
 
     return tdf
+
+
+def val_to_tup(val):
+    return '({},,)'.format(val)
+
+def lsd(row):
+    lsd = max(row['DEPTH_1_KM'], row['DEPTH_2'], row['DEPTH_3'])
+
+    return val_to_tup(lsd)
+
+
+def usd(row):
+    return '(0.,,)'
 
 
 def load_val(obj):

@@ -12,6 +12,8 @@ def process_emme(emme_df):
     emme_df['dip'] = emme_df.apply(dip_to_tup, axis=1)
     emme_df['slip_rate'] = emme_df.apply(slip_rate_to_tup, axis=1)
     emme_df['epistemic_quality'] = emme_df.apply(epist_quality, axis=1)
+    emme_df['lower_seis_depth'] = emme_df.apply(lower_seis_depth, axis=1)
+    emme_df['upper_seis_depth'] = emme_df.apply(upper_seis_depth, axis=1)
 
     return emme_df
 
@@ -23,6 +25,14 @@ def epist_quality(row):
         return 2
     elif row['CLASS'] == 'C':
         return 3
+
+
+def lower_seis_depth(row):
+    return '({},,)'.format(row['MAXDEPTH'])
+
+
+def upper_seis_depth(row):
+    return '({},,)'.format(row['MINDEPTH'])
 
 
 def rake_to_tup(row):

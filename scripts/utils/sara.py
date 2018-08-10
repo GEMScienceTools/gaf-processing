@@ -16,7 +16,19 @@ def process_sara(sara_df):
     sara_df['slip_type'] = [sar_slip_type[row.rup_type] 
                             for i, row in sara_df.iterrows()]
 
+    sara_df['lower_seis_depth'] = sara_df.apply(lsd, axis=1)
+    sara_df['upper_seis_depth'] = sara_df.apply(usd, axis=1)
+
     return sara_df
+
+
+def usd(row):
+    return '({},,)'.format(row['usd'])
+
+
+def lsd(row):
+    return '({},,)'.format(row['lsd'])
+
 
 
 def _dips_parse(dip, dips):

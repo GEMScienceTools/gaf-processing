@@ -13,6 +13,8 @@ def process_eur_share(eur_df):
     eur_df['slip_rate'] = eur_df.apply(eur_slip_rate_to_tup, axis=1)
     eur_df['dip'] = eur_df.apply(eur_dip_to_tup, axis=1)
     eur_df['slip_type'] = eur_df.apply(get_slip_type_from_rake, axis=1)
+    eur_df['lower_seis_depth'] = eur_df.apply(lsd, axis=1)
+    eur_df['upper_seis_depth'] = eur_df.apply(usd, axis=1)
 
     return eur_df
 
@@ -50,6 +52,14 @@ def eur_slip_rate_to_tup(row):
     srmax = row['srmax']
     srav = np.mean((srmin, srmax))
     return '({:.1f},{},{})'.format(srav, srmin, srmax)
+
+
+def lsd(row):
+    return '({},,)'.format(row['maxdepth'])
+
+
+def usd(row):
+    return '({},,)'.format(row['mindepth'])
 
 
 def get_slip_type_from_rake(row):
