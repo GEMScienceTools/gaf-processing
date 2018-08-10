@@ -49,13 +49,18 @@ print('writing output files')
 logging.info('writing geojson')
 master_df.to_file('../outputs/geojson/gem_active_faults.geojson',
                   driver="GeoJSON")
-
-#logging.info('writing geopackage')
-#master_df.to_file('../outputs/geopackage/gem_active_faults.gpkg',
-#                  driver="GPKG")
+logging.info('writing geopackage')
+try:
+    master_df.to_file('../outputs/geopackage/gem_active_faults.gpkg',
+                      driver="GPKG")
+except Exception as e:
+    print(e)
+    logging.exception(e)
 
 logging.info('writing shapefile')
-master_df.to_file('../outputs/shapefile/gem_active_faults.shp',
-                  driver="ESRI Shapefile")
-
-
+try:
+    master_df.to_file('../outputs/shapefile/gem_active_faults.shp',
+                      driver="ESRI Shapefile")
+except Exception as e:
+    print(e)
+    logging.exception(e)
