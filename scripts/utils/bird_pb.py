@@ -50,9 +50,9 @@ def bird_slip_type_parse(row):
 
     elif row.STEPCLASS == 'OTF':
         if row.VELOCITYRI > 0:
-            return 'Dextral'
+            return 'Dextral Transform'
         else:
-            return 'Sinistral'
+            return 'Sinistral Transform'
 
     elif row.STEPCLASS == 'CTF':
         if row.VELOCITYRI > 0:
@@ -61,7 +61,7 @@ def bird_slip_type_parse(row):
             return 'Sinistral'
 
     elif row.STEPCLASS == 'OCB':
-        return 'Reverse'
+        return 'Subduction Thrust'
 
     elif row.STEPCLASS == 'CCB':
         return 'Reverse'

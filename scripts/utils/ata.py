@@ -54,6 +54,7 @@ def ata_ltype_to_kinematics(row):
     ltype = row['convention']
     
     conv_d = {1111: 'Reverse', 1211: 'Normal', 1311: 'Dextral', 
-              1411: 'Sinistral', 0:''}
+              1411: 'Sinistral', 0: None, 1511: 'Subduction Thrust',
+              1611: 'Sinistral Transform', 1711: 'Dextral Transform'}
     
     return conv_d[ltype]
