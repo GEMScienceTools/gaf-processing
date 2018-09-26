@@ -61,7 +61,11 @@ def check_triple_sort(val):
 
 
 def sort_triple(val):
-    trip_vals = triple_to_vals(val)
+    if isinstance(val, str):
+        trip_vals = triple_to_vals(val)
+    else:
+        trip_vals = list(val)
+
     sort_vals = sorted(trip_vals)
 
     return (sort_vals[1], sort_vals[0], sort_vals[2])
@@ -91,13 +95,13 @@ def change_triple_sort(bad_trip):
     else:
         sv = sorted(bad_trip)
 
+    sv = [np.float(v) for v in sv]
+
     if len(sv) == 1:
         return '({},,)'.format(sv[0])
     elif len(sv) == 2:
-        sv = [float(v) for v in sv]
         sv.append(np.mean(sv))
-        sv_str = '({},{}.,{}'.format(*sv)
-        return sort_triple(sv_str)
+        return sort_triple(sv)
 
 
 def check_int_value(val, accept_none=True):
@@ -378,7 +382,8 @@ slip_types = ['Reverse', 'Reverse-Dextral', 'Dextral-Reverse', 'Dextral',
               'Sinistral-Normal', 'Sinistral', 'Sinistral-Reverse',
               'Reverse-Sinistral', 'Subduction Thrust', 'Spreading Ridge',
               'Strike-Slip', 'Reverse-Strike-Slip', 'Normal-Strike-Slip',
-              'Anticline', 'Syncline']
+              'Anticline', 'Syncline', 'Dextral Transform',
+              'Sinistral Transform']
 
 
 def change_slip_type(val, min_distance=3):
