@@ -39,7 +39,7 @@ fn_dict['process_mexico'] = process_mexico
 fn_dict['process_bird_pb'] = process_bird_pb
 fn_dict['process_nz_litchfield'] = process_nz_litchfield
 fn_dict['process_eos_se_asia'] = process_eos_se_asia
-fn_dict['process_gaf'] = process_gaf
+fn_dict['process_gfe'] = process_gfe
 
 
 def merge_regional_df_into_master(regional_df, master_df, merge_dict,

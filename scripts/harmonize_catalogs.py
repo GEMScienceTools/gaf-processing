@@ -101,6 +101,19 @@ try:
 except:
     pass
 
+print('writing output files')
+
+print('writing geojson')
 mdf.to_file(mdf_write_path, driver='GeoJSON')
-#mdf.to_file(mdf_write_path_gpkg, driver='GPKG')
-mdf.to_file(mdf_write_path_shp)
+
+print('writing geopackage')
+try:
+    mdf.to_file(mdf_write_path_gpkg, driver='GPKG')
+except Exception as e:
+    print(e)
+
+print('writing shapefile')
+try:
+    mdf.to_file(mdf_write_path_shp)
+except Exception as e:
+    print(e)
