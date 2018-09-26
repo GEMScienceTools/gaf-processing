@@ -1,12 +1,12 @@
 from .data_checks import change_triple_sort
 
 
-def process_gaf(gaf_df):
+def process_gfe(gfe_df):
 
-    gaf_df['upper_seis_depth'] = gaf_df.apply(upper_seis_depth, axis=1)
-    gaf_df['lower_seis_depth'] = gaf_df.apply(lower_seis_depth, axis=1)
+    gfe_df['upper_seis_depth'] = gfe_df.apply(upper_seis_depth, axis=1)
+    gfe_df['lower_seis_depth'] = gfe_df.apply(lower_seis_depth, axis=1)
 
-    return gaf_df
+    return gfe_df
 
 
 def upper_seis_depth(row):

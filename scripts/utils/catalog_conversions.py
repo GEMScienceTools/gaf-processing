@@ -21,7 +21,7 @@ from .mexico import process_mexico
 from .bird_pb import process_bird_pb
 from .nz_litchfield import process_nz_litchfield
 from .eos_se_asia import process_eos_se_asia
-from .gaf import process_gaf
+from .gfe import process_gfe
 
 # This makes a dictionary of the imported processing master functions above
 # to be called by the string version of the function
